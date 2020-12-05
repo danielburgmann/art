@@ -8,7 +8,7 @@
  * You must accept the terms of that agreement to use this software.
  * ====================================================================
  *
- * 
+ *
  */
 package net.sf.wcfart.wcf.format;
 
@@ -21,7 +21,7 @@ public class DoubleHandler extends NumberHandler {
 
   public Object parse(String s, String userPattern) throws FormatException {
     Number n = (Number) super.parse(s, userPattern);
-    return new Double(n.doubleValue());
+    return Double.valueOf(n.doubleValue());
   }
 
   public boolean canHandle(Object value) {
@@ -41,7 +41,7 @@ public class DoubleHandler extends NumberHandler {
   	double[] src = (double[])value;
     Double[] dst = new Double[src.length];
     for (int i = 0; i < src.length; i++)
-      dst[i] = new Double(src[i]);
+      dst[i] = Double.valueOf(src[i]);
     return dst;
   }
 

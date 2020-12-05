@@ -8,7 +8,7 @@
  * You must accept the terms of that agreement to use this software.
  * ====================================================================
  *
- * 
+ *
  */
 package net.sf.wcfart.wcf.ui;
 
@@ -22,9 +22,9 @@ import net.sf.wcfart.wcf.format.FormatHandler;
 import net.sf.wcfart.wcf.format.Formatter;
 import net.sf.wcfart.wcf.utils.XoplonNS;
 
-/** 
+/**
  * has a value, type and format string. The value may be read or written into
- * a bean via model reference. 
+ * a bean via model reference.
  */
 public abstract class EditCtrl extends TypedCtrl {
 
@@ -92,13 +92,13 @@ public abstract class EditCtrl extends TypedCtrl {
   }
 
   public static void setBoolean(Formatter fmt, Element elem, boolean value) throws FormatException {
-    setValue(fmt, elem, new Boolean(value));
+    setValue(fmt, elem, Boolean.valueOf(value));
   }
   public static void setInt(Formatter fmt, Element elem, int value) throws FormatException {
-    setValue(fmt, elem, new Integer(value));
+    setValue(fmt, elem, Integer.valueOf(value));
   }
   public static void setDouble(Formatter fmt, Element elem, double value) throws FormatException {
-    setValue(fmt, elem, new Double(value));
+    setValue(fmt, elem, Double.valueOf(value));
   }
   public static void setDate(Formatter fmt, Element elem, Date value) throws FormatException {
     setValue(fmt, elem, value);

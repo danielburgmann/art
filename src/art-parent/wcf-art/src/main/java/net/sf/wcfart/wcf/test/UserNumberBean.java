@@ -8,7 +8,7 @@
  * You must accept the terms of that agreement to use this software.
  * ====================================================================
  *
- * 
+ *
  */
 
 package net.sf.wcfart.wcf.test;
@@ -31,7 +31,7 @@ public class UserNumberBean {
 
     public UserNumberBean() {
         Random randomGR = new Random();
-        randomInt = new Integer(randomGR.nextInt(10));
+        randomInt = Integer.valueOf(randomGR.nextInt(10));
         System.out.println("Duke's number: " + randomInt);
     }
 
@@ -118,8 +118,8 @@ public class UserNumberBean {
                             (context,
                              Validator.NOT_IN_RANGE_MESSAGE_ID,
                              new Object[]{
-                                 new Integer(minimum),
-                                 new Integer(maximum)
+                                 Integer.valueOf(minimum),
+                                 Integer.valueOf(maximum)
                              }));
 
                     } else {
@@ -128,7 +128,7 @@ public class UserNumberBean {
                             (context,
                              LongRangeValidator.MAXIMUM_MESSAGE_ID,
                              new Object[]{
-                                 new Integer(maximum)
+                                 Integer.valueOf(maximum)
                              }));
                     }
                 }
@@ -139,8 +139,8 @@ public class UserNumberBean {
                                                      (context,
                                                       Validator.NOT_IN_RANGE_MESSAGE_ID,
                                                       new Object[]{
-                                                          new Double(minimum),
-                                                          new Double(maximum)
+                                                          Double.valueOf(minimum),
+                                                          Double.valueOf(maximum)
                                                       }));
 
                     } else {
@@ -149,7 +149,7 @@ public class UserNumberBean {
                             (context,
                              LongRangeValidator.MINIMUM_MESSAGE_ID,
                              new Object[]{
-                                 new Integer(minimum)
+                                 Integer.valueOf(minimum)
                              }));
                     }
                 }

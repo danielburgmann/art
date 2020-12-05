@@ -8,7 +8,7 @@
  * You must accept the terms of that agreement to use this software.
  * ====================================================================
  *
- * 
+ *
  */
 package net.sf.wcfart.wcf.convert;
 
@@ -51,7 +51,7 @@ public abstract class BooleanConverter extends NodeConverterBase {
       return;
 
     // was the checkbox checked?
-    Boolean value = new Boolean(state == TRUE);
+    Boolean value = Boolean.valueOf(state == TRUE);
 
     // set into elem and bean
     DomUtils.removeAttribute(elem, "error");

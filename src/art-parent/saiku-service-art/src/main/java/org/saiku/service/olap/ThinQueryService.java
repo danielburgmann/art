@@ -1,4 +1,4 @@
-/*  
+/*
  *   Copyright 2012 OSBI Ltd
  *
  *   Licensed under the Apache License, Version 2.0 (the "License");
@@ -255,7 +255,7 @@ public class ThinQueryService implements Serializable {
 			log.info(runId + "\tSize: " + result.getWidth() + "/" + result.getHeight() + "\tExecute:\t" + (exec - start)
 					+ "ms\tFormat:\t" + (format - exec) + "ms\tTotals:\t" + (totals - format) + "ms\t Total: " + (totals - start) + "ms");
 
-			result.setRuntime(new Double(format - start).intValue());
+			result.setRuntime(Double.valueOf(format - start).intValue());
 			return result;
 		} catch (Exception | Error e) {
 			throw new SaikuServiceException("Can't execute query: " + tq.getName(), e);

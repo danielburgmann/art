@@ -181,7 +181,7 @@ public class ArtDatabaseController {
 				//for jdbc 4 drivers, you don't have to specify driver or use class.forName()
 				//https://stackoverflow.com/questions/5484227/jdbc-class-forname-vs-drivermanager-registerdriver
 				if (StringUtils.isNotBlank(driver)) {
-					Class.forName(driver).newInstance();
+					Class.forName(driver).getDeclaredConstructor().newInstance();
 				}
 				//conn = DriverManager.getConnection(url, username, password);
 				//use getDriver() in order for correct reporting of No suitable driver error.
@@ -196,7 +196,7 @@ public class ArtDatabaseController {
 			/* if we are here, Connection to art database is successful.
 
 			 If this is a connection to demo database just after the initial setup,
-			 update "SampleDB" and "Art Repository" datasources in Art Repository 
+			 update "SampleDB" and "Art Repository" datasources in Art Repository
 			 to point to the correct files
 
 			 */

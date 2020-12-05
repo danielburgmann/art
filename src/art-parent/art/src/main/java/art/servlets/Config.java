@@ -52,6 +52,7 @@ import freemarker.template.TemplateExceptionHandler;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.sql.Connection;
 import java.sql.Driver;
 import java.sql.DriverManager;
@@ -488,7 +489,7 @@ public class Config extends HttpServlet {
 	 * Registers custom fonts to be used in pdf output
 	 */
 	private static void registerPdfFonts() {
-		//register pdf fonts. 
+		//register pdf fonts.
 		//fresh registering of 661 fonts in c:\windows\fonts can take as little as 10 secs
 		//re-registering already registered directory of 661 fonts takes as little as 1 sec
 
@@ -554,7 +555,7 @@ public class Config extends HttpServlet {
 
 			//upgrade art database
 			performLiquibaseUpgrade();
-			
+
 			String templatesPath = getTemplatesPath();
 			UpgradeHelper upgradeHelper = new UpgradeHelper();
 			upgradeHelper.upgrade(templatesPath);
@@ -697,16 +698,16 @@ public class Config extends HttpServlet {
 			reportFormats.addAll(Arrays.asList(reportFormatsArray));
 		}
 
-		//register pdf fonts 
+		//register pdf fonts
 		registerPdfFonts();
 
 		//register database authentication jdbc driver
 		String driver = settings.getDatabaseAuthenticationDriver();
 		if (StringUtils.isNotBlank(driver)) {
 			try {
-				Class.forName(driver).newInstance();
+				Class.forName(driver).getDeclaredConstructor().newInstance();
 				logger.debug("Database Authentication JDBC Driver Registered: {}", driver);
-			} catch (ClassNotFoundException | InstantiationException | IllegalAccessException e) {
+			} catch (ClassNotFoundException | InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
 				logger.error("Error while registering Database Authentication JDBC Driver: {}", driver, e);
 			}
 		}

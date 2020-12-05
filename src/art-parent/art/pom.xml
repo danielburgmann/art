@@ -21,7 +21,7 @@
 			<url>https://www.gnu.org/licenses/gpl-3.0.txt</url>
 		</license>
 	</licenses>
-	
+
 	<properties>
 		<poi.version>4.0.1</poi.version>
 		<owasp.encoder.version>1.2.2</owasp.encoder.version>
@@ -81,16 +81,16 @@
 						</mapping>
 					</configuration>
 				</plugin>
-				
+
 			</plugins>
 		</pluginManagement>
 
 		<plugins>
-			<!-- use License Maven Plugin as required e.g. mvn license:check, 
+			<!-- use License Maven Plugin as required e.g. mvn license:check,
 			license:format, license:remove to update license headers-->
 			<plugin>
-				<groupId>com.mycila</groupId> 
-				<artifactId>license-maven-plugin</artifactId> 
+				<groupId>com.mycila</groupId>
+				<artifactId>license-maven-plugin</artifactId>
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -114,7 +114,7 @@
 			<name>CUBRID-releases</name>
 			<url>http://maven.cubrid.org</url>
 		</repository>
-		<!-- in-project repository for artifacts that are not in a public maven 
+		<!-- in-project repository for artifacts that are not in a public maven
 		repository e.g. spnego, itext-asian-2.1.7 -->
 		<!-- https://devcenter.heroku.com/articles/local-maven-dependencies -->
 		<repository>
@@ -149,7 +149,7 @@
 			<url>http://jcenter.bintray.com</url>
 		</repository>
 	</repositories>
-	
+
 	<dependencyManagement>
 		<dependencies>
 			<!-- use itext that comes with jasperreports to avoid warning with jasperreports pdf output -->

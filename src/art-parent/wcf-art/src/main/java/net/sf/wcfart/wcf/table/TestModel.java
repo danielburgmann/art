@@ -8,7 +8,7 @@
  * You must accept the terms of that agreement to use this software.
  * ====================================================================
  *
- * 
+ *
  */
 package net.sf.wcfart.wcf.table;
 
@@ -31,15 +31,15 @@ public class TestModel extends AbstractTableModel {
     rows = new TableRow[N];
     DecimalFormat df = new DecimalFormat("00");
     for (int i = 0; i < N; i++) {
-      DefaultCell h1 = new DefaultCell("/", new Integer(rnd.nextInt(1000)), null);
+      DefaultCell h1 = new DefaultCell("/", Integer.valueOf(rnd.nextInt(1000)), null);
       DefaultCell h2 = new DefaultCell("/", null, nextImg());
       DefaultCell h3 = new DefaultCell("/", "Text " + rnd.nextInt(100), nextImg());
       String s = "2002-02-" + df.format(i + 1);
       Object[] values = new Object[] {
         "Hello World: " + i,
         java.sql.Date.valueOf(s),
-        new Double((double)rnd.nextInt(10000) / (double)rnd.nextInt(100) ),
-        new Integer(rnd.nextInt(1000)),
+        Double.valueOf(Double.valueOf(rnd.nextInt(10000)) / Double.valueOf(rnd.nextInt(100))),
+        Integer.valueOf(rnd.nextInt(1000)),
         h1, h2, h3
       };
       rows[i] = new DefaultTableRow(values);

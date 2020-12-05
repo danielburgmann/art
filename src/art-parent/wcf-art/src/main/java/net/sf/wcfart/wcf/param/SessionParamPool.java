@@ -8,10 +8,11 @@
  * You must accept the terms of that agreement to use this software.
  * ====================================================================
  *
- * 
+ *
  */
 package net.sf.wcfart.wcf.param;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -29,14 +30,14 @@ import net.sf.wcfart.tbutils.res.Resources;
  * A pool that contains all {@link SessionParam} instances of a session.
  * JSPs, SQL Queries and MDX Queries may fetch parameter values that
  * they need for display or computation.
- * 
+ *
  * <p/>
- * Parameters may be accessed from a JSP with JSTL scripting, for 
+ * Parameters may be accessed from a JSP with JSTL scripting, for
  * example
  * <pre>
  *   Selected Customer: &lt;c:out value="${paramPool.myParam.displayValue}"/&gt;
  * </pre>
- * 
+ *
  * <p/>
  * Parameters may be accessed in a JSTL SQL tag like
  * <pre>
@@ -46,7 +47,7 @@ import net.sf.wcfart.tbutils.res.Resources;
  *     ...
  *   &lt;/sql:query&gt;
  * </pre>
- * 
+ *
  * <p/>
  * Parameters may be used in MDX Queries like
  * <pre>
@@ -55,14 +56,14 @@ import net.sf.wcfart.tbutils.res.Resources;
  *     &lt;jp:mondrianParam name="..."/&gt;
  *   &lt;/jp:mondrianQuery&gt;
  * </pre>
- * 
+ *
  * <p/>
  * A SessionParamPool creates two session variables
  * <ul>
  *   <li><code>paramPool</code> the SessionParamPool instance that contains SessionParam's</li>
  *   <li><code>sqlValueMap</code> a map view to the SessionParamPool that contains the parameters name and their sql values</li>
  * </ul>
- * 
+ *
  * @author av
  */
 
@@ -109,14 +110,8 @@ public class SessionParamPool implements Map<Object, Object> {
     String clazz = SessionParamPool.class.getName();
     clazz = Resources.instance().getOptionalString(clazz, clazz);
     try {
-      return (SessionParamPool) Class.forName(clazz).newInstance();
-    } catch (InstantiationException e) {
-      logger.error(null, e);
-      throw new IllegalArgumentException(clazz);
-    } catch (IllegalAccessException e) {
-      logger.error(null, e);
-      throw new IllegalArgumentException(clazz);
-    } catch (ClassNotFoundException e) {
+      return (SessionParamPool) Class.forName(clazz).getDeclaredConstructor().newInstance();
+    } catch (InstantiationException | IllegalAccessException | ClassNotFoundException | InvocationTargetException | NoSuchMethodException e) {
       logger.error(null, e);
       throw new IllegalArgumentException(clazz);
     }
@@ -142,9 +137,9 @@ public class SessionParamPool implements Map<Object, Object> {
 
   /**
    * stores all SessionParam objects of c into the pool. Returns a Map
-   * that contains the previous value (or null) for the 
+   * that contains the previous value (or null) for the
    * modified parameter names.
-   * @see #popParams(Map) 
+   * @see #popParams(Map)
    */
   public Map<String, SessionParam> pushParams(Collection<SessionParam> c) {
     Map<String, SessionParam> memento = new HashMap<>();
@@ -161,7 +156,7 @@ public class SessionParamPool implements Map<Object, Object> {
   /**
    * restores the state of the pool that was modified
    * by pushParams
-   * 
+   *
    * @see #pushParams(Collection)
    */
   public void popParams(Map<String, SessionParam> memento) {

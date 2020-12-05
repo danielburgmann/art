@@ -8,7 +8,7 @@
  * You must accept the terms of that agreement to use this software.
  * ====================================================================
  *
- * 
+ *
  */
 package net.sf.wcfart.wcf.tree;
 
@@ -28,7 +28,7 @@ public class CachingTreeModelDecorator extends TreeModelDecorator {
   Map<Object, Object> getParentMap;
   Map<Object, Object[]> getChildrenMap;
   Map<Object, Boolean> hasChildrenMap;
-  
+
   private static Logger logger = Logger.getLogger(CachingTreeModelDecorator.class);
   /**
    * creates a CachingTreeModel that uses HashMap for implementation
@@ -74,7 +74,7 @@ public class CachingTreeModelDecorator extends TreeModelDecorator {
   public boolean hasChildren(Object node) {
     Boolean b = hasChildrenMap.get(node);
     if (b == null) {
-      b = new Boolean(super.hasChildren(node));
+      b = Boolean.valueOf(super.hasChildren(node));
       hasChildrenMap.put(node, b);
     }
     return b;

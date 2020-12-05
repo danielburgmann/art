@@ -29,30 +29,30 @@ import org.apache.log4j.Logger;
  * will look up the initial variables in System properties only. This is meant
  * for testing outside the web environment.
  * <p>
- * 
+ *
  * <dl>
- * 
+ *
  * <dt>tbeller.locale</dt>
  * <dd>A string either 2 characters (e.g. "en") or 5 chars (e.g. "en_US"). If
  * present, the application will not care about the browsers locale but use this
  * locale instead.</dd>
- * 
+ *
  * <dt>tbeller.home</dt>
  * <dd>A directory that contains configuration files that have been modified by
  * the customer and other resources. If not set the default is
  * ${user.home}/.tbeller</dd>
- * 
+ *
  * <dt>tbeller.properties</dt>
  * <dd>whitespace separated list of property file names, relative to
  * TBELLER_HOME. These files will be loaded via the file system. Should be
  * defined in web.xml</dd>
- * 
+ *
  * <dt>tbeller.bundles</dt>
  * <dd>a whitespace separated list of ResourceBundle names that will be loaded
  * via ResourceBundle.getBundle. Should be defined in web.xml</dd>
- * 
+ *
  * </dl>
- * 
+ *
  * @author av
  */
 public class ResourcesFactory {
@@ -116,14 +116,14 @@ public class ResourcesFactory {
     ResourceProvider bundleProvider = getProvider(locale, bundleName);
     if (bundleProvider != null)
       crp.add(bundleProvider);
-    
+
     return new Resources(crp, locale, homeDir);
   }
 
   /**
    * if the application was configured to use a fixed locale independent of the
    * browsers locale, returns that locale. Returns null otherwise
-   * 
+   *
    * @return locale or null
    */
   public Locale getFixedLocale() {
@@ -163,13 +163,13 @@ public class ResourcesFactory {
       p.close();
     }
   }
-  
+
   private ResourceProvider getInitialProvider() {
     ResourceProvider m = new SimpleInitialProvider();
     String clazz = m.getString(INITIAL_PROVIDER);
     if (clazz != null) {
       try {
-        return (ResourceProvider) Class.forName(clazz).newInstance();
+        return (ResourceProvider) Class.forName(clazz).getDeclaredConstructor().newInstance();
       } catch (Exception e) {
         logger.error("could not instantiate " + clazz, e);
       }
@@ -181,11 +181,11 @@ public class ResourcesFactory {
 
   void initialize(ResourceProvider resp) {
     locale2providerMap.clear();
-    
+
     ResourceProvider p = new ReplacingResourceProvider(resp);
     bundles = tokenize(p.getString(TBELLER_BUNDLES));
-    
-    // home directory may be overridden in ResourceBundle 
+
+    // home directory may be overridden in ResourceBundle
     CompositeResourceProvider c = new CompositeResourceProvider();
     c.add(p);
     addBundleProviders(Locale.getDefault(), c);
@@ -253,7 +253,7 @@ public class ResourcesFactory {
       fn = homeDir.getAbsolutePath() + File.separator + propertyName;
     return findFile(fn, locale);
   }
-  
+
   /**
    * @param locale
    * @param c

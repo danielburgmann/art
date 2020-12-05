@@ -482,7 +482,7 @@ public class DatasourceController {
 					if (StringUtils.isNotBlank(driver)) {
 						//use newInstance for buggy drivers e.g. neo4j driver
 						//https://github.com/neo4j-contrib/neo4j-jdbc/issues/104
-						Class.forName(driver).newInstance();
+						Class.forName(driver).getDeclaredConstructor().newInstance();
 					}
 					//use ends with instead of equals to cater for net.sf.mondrianart.mondrian.olap4j.MondrianOlap4jDriver
 					if (StringUtils.endsWith(driver, "mondrian.olap4j.MondrianOlap4jDriver")) {

@@ -8,7 +8,7 @@
  * You must accept the terms of that agreement to use this software.
  * ====================================================================
  *
- * 
+ *
  */
 package net.sf.wcfart.wcf.format;
 
@@ -32,9 +32,9 @@ public class BooleanHandler extends FormatHandlerSupport {
   }
 
   public Object parse(String s, String userPattern) {
-    return new Boolean(s);
+    return Boolean.valueOf(s);
   }
-  
+
   public boolean canHandle(Object value) {
     return value instanceof Boolean;
   }
@@ -45,15 +45,15 @@ public class BooleanHandler extends FormatHandlerSupport {
       array[i] = ((Boolean)list.get(i)).booleanValue();
     return array;
   }
-  
+
   public Object[] toObjectArray(Object value) {
   	if (value instanceof Boolean)
   	  return new Boolean[]{(Boolean)value};
   	boolean[] src = (boolean[])value;
     Boolean[] dst = new Boolean[src.length];
     for (int i = 0; i < src.length; i++)
-      dst[i] = new Boolean(src[i]);
+      dst[i] = Boolean.valueOf(src[i]);
     return dst;
   }
-  
+
 }

@@ -22,7 +22,7 @@ public class DoubleNaNHandler extends DoubleHandler {
    */
   public Object parse(String s, String userPattern) throws FormatException {
     if (s != null && s.length() == 0) {
-      return new Double(Double.NaN);
+      return Double.valueOf(Double.NaN);
     } else {
       return super.parse(s, userPattern);
     }

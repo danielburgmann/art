@@ -8,7 +8,7 @@
  * You must accept the terms of that agreement to use this software.
  * ====================================================================
  *
- * 
+ *
  */
 package net.sf.wcfart.wcf.table;
 
@@ -75,7 +75,7 @@ public class TableComponent extends NestableComponentSupport implements ITableCo
 
       // validate other forms
       validate(context);
-      
+
       // in read-only mode dont change selection
       if (isReadOnly())
         return;
@@ -156,7 +156,7 @@ public class TableComponent extends NestableComponentSupport implements ITableCo
       }
     }
   }
-  
+
   TableModelChangeListener changeListener = new TableModelChangeListener() {
     public void tableModelChanged(TableModelChangeEvent event) {
       if (event.isIdentityChanged()) {
@@ -437,7 +437,7 @@ public class TableComponent extends NestableComponentSupport implements ITableCo
 
   void renderPager(TableModel model, RequestContext context) {
     int pageCount = pager.getPageCount();
-    
+
     if (model.getRowCount() < 2)
       return;
 
@@ -460,8 +460,8 @@ public class TableComponent extends NestableComponentSupport implements ITableCo
     // add "Page 1/5"
     DomUtils.appendText(td, "\u00a0");
     Object[] args = new Object[2];
-    args[0] = new Integer(currentPage + 1); // zero based
-    args[1] = new Integer(pageCount);
+    args[0] = Integer.valueOf(currentPage + 1); // zero based
+    args[1] = Integer.valueOf(pageCount);
     text(td, resources.getString("wcf.table.pages", args));
 
     // add forward buttons

@@ -74,9 +74,9 @@ public class Configuration implements Serializable {
                     } else if ("storage".equalsIgnoreCase(param)) {
                         storageClassName = value;
                     } else if ("maxImageWidth".equalsIgnoreCase(param)) {
-						maxImageWidth = Integer.parseInt(value); 
+						maxImageWidth = Integer.parseInt(value);
                     } else if ("maxImageHeight".equalsIgnoreCase(param)) {
-						maxImageHeight = Integer.parseInt(value); 
+						maxImageHeight = Integer.parseInt(value);
                     } else {
 						// not quite true: FileStorage.deleteOnExit is used just fine
                         ctx.log(param + " parameter is ignored.");
@@ -85,7 +85,7 @@ public class Configuration implements Serializable {
                 }
             } catch (Throwable t) {
                 ctx.log("Error in Cewolf config.", t);
-            }            
+            }
         } else {
         	ctx.log("Cewolf Misconfiguration. You should add a <load-on-startup> tag "
         			+ "to your web.xml for the Cewolf rendering servlet.\n"
@@ -115,7 +115,7 @@ public class Configuration implements Serializable {
 
 	private void initStorage (ServletContext ctx) throws CewolfException {
 		try {
-			storage = (Storage)Class.forName(storageClassName).newInstance();
+			storage = (Storage)Class.forName(storageClassName).getDeclaredConstructor().newInstance();
 		} catch(Exception ex){
 			ex.printStackTrace();
 			throw new CewolfException(ex.getMessage());
@@ -146,7 +146,7 @@ public class Configuration implements Serializable {
 
 		return config;
 	}
-        
+
 	/**
 	 * Checks if debugging is configured to be turned on. Configured by
 	 * init param <code>debug</code> in web.xml.

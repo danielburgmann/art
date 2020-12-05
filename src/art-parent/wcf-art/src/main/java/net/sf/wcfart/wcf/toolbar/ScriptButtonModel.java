@@ -8,7 +8,7 @@
  * You must accept the terms of that agreement to use this software.
  * ====================================================================
  *
- * 
+ *
  */
 package net.sf.wcfart.wcf.toolbar;
 
@@ -17,12 +17,12 @@ import net.sf.wcfart.wcf.controller.RequestContext;
 /**
  * Toolbar button associated with a property of a session bean. The property is addressed via
  * a script string.
- * 
+ *
  * @author av
  */
 public class ScriptButtonModel implements ToolButtonModel {
   String modelReference;
-  
+
 
   /**
    * Constructor for ScriptModel.
@@ -43,7 +43,7 @@ public class ScriptButtonModel implements ToolButtonModel {
    * @see net.sf.wcfart.wcf.toolbar.ToolButtonModel#setPressed(RequestContext, boolean)
    */
   public void setPressed(RequestContext context, boolean value) {
-    context.setModelReference(modelReference, new Boolean(value));
+    context.setModelReference(modelReference, Boolean.valueOf(value));
   }
 
 }

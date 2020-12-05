@@ -1,4 +1,4 @@
-/*  
+/*
  *   Copyright 2012 OSBI Ltd
  *
  *   Licensed under the Apache License, Version 2.0 (the "License");
@@ -84,7 +84,7 @@ public class SaikuOlapConnection implements ISaikuConnection {
 				}
 
 				if (StringUtils.isNotBlank(driver)) {
-					Class.forName(driver).newInstance();
+					Class.forName(driver).getDeclaredConstructor().newInstance();
 				}
 				Connection connection = DriverManager.getConnection(url, username, password);
 

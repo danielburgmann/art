@@ -8,7 +8,7 @@
  * You must accept the terms of that agreement to use this software.
  * ====================================================================
  *
- * 
+ *
  */
 package net.sf.wcfart.wcf.form;
 
@@ -45,10 +45,10 @@ import net.sf.wcfart.wcf.utils.SoftException;
  *     &lt;my-other-elem handler="my.pkg.ClassName"/&gt;
  *   &lt;/myelem&gt;
  * </pre>
- * XmlComponent will create an instance of my.pkg.ClassName and call its initialize() 
+ * XmlComponent will create an instance of my.pkg.ClassName and call its initialize()
  * method with the my-other-elem Element as parameter. The NodeHandler may then choose
  * to register itself as FormListener or RequestListener with the Environment.
- * 
+ *
  * @author av
  */
 public class XmlComponent extends ComponentSupport {
@@ -62,7 +62,7 @@ public class XmlComponent extends ComponentSupport {
    * creates a Component
 	 * @param id id
 	 * @param parent parent
-   * @param document the document to use. 
+   * @param document the document to use.
    */
   public XmlComponent(String id, Component parent, Document document) {
     super(id, parent);
@@ -99,10 +99,10 @@ public class XmlComponent extends ComponentSupport {
    *     &lt;my-other-elem handler="my.pkg.ClassName"/&gt;
    *   &lt;/myelem&gt;
    * </pre>
-   * install() will create an instance of my.pkg.ClassName and call its initialize() 
+   * install() will create an instance of my.pkg.ClassName and call its initialize()
    * method with the my-other-elem Element as parameter.
    * <p />
-   * 
+   *
    * @return Map maps the Elements to the created NodeHandlers (i.e. map.get(Element) returns NodeHandler)
    */
   void installNodeHandlers(RequestContext context, Document root) throws Exception {
@@ -113,7 +113,7 @@ public class XmlComponent extends ComponentSupport {
       List<Element> elements = findHandlerElements(root);
       for (Element elem : elements) {
         String clazz = elem.getAttribute("handler");
-        NodeHandler nh = (NodeHandler) Class.forName(clazz).newInstance();
+        NodeHandler nh = (NodeHandler) Class.forName(clazz).getDeclaredConstructor().newInstance();
         nh.initialize(context, this, elem);
         elementHandlerMap.put(elem, nh);
         handlerElementMap.put(nh, elem);
@@ -140,9 +140,9 @@ public class XmlComponent extends ComponentSupport {
     installDefaultHandler(root, "//xtabbed", "net.sf.wcfart.wcf.tabbed.TabbedHandler");
     installDefaultHandler(root, "//button", "net.sf.wcfart.wcf.form.ButtonHandler");
     installDefaultHandler(root, "//imgButton", "net.sf.wcfart.wcf.form.ButtonHandler");
-    
+
     DOMXPath xp = new DOMXPath("//*[@handler]");
-	
+
 	List<Element> elements = NoWarn.castList(xp.selectNodes(root));
     return elements;
   }
@@ -155,7 +155,7 @@ public class XmlComponent extends ComponentSupport {
         e.setAttribute("handler", clazz);
     }
   }
-  
+
   /**
    * sets the hidden attribute of elements that have a role attribute.
    */
@@ -213,7 +213,7 @@ public class XmlComponent extends ComponentSupport {
 
   /**
    * get children
-   * 
+   *
    * @param handler handler
    * @return children
    */

@@ -8,9 +8,11 @@
  * You must accept the terms of that agreement to use this software.
  * ====================================================================
  *
- * 
+ *
  */
 package net.sf.wcfart.wcf.controller;
+
+import java.lang.reflect.InvocationTargetException;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
@@ -49,16 +51,10 @@ public class RequestContextFactoryFinder {
         String className = context.getInitParameter(CONTEXT_KEY);
         if (className == null)
           className = RequestContextFactoryImpl.class.getName();
-        rcf = (RequestContextFactory) Class.forName(className).newInstance();
+        rcf = (RequestContextFactory) Class.forName(className).getDeclaredConstructor().newInstance();
         session.setAttribute(SESSION_KEY, rcf);
       }
-    } catch (InstantiationException e) {
-      logger.error(null, e);
-      throw new SoftException(e);
-    } catch (IllegalAccessException e) {
-      logger.error(null, e);
-      throw new SoftException(e);
-    } catch (ClassNotFoundException e) {
+    } catch (InstantiationException | IllegalAccessException | ClassNotFoundException | InvocationTargetException | NoSuchMethodException e) {
       logger.error(null, e);
       throw new SoftException(e);
     }
@@ -71,9 +67,9 @@ public class RequestContextFactoryFinder {
    * @param threadLocal if true, a thread local RequestContext variable is initialized. The thread
    * local may be accessed via RequestContext.instance() and must be cleaned up by the caller
    * via RequestContext.invalidate().
-   * 
+   *
    * @see RequestContext#instance()
-   * @see RequestContext#invalidate() 
+   * @see RequestContext#invalidate()
    */
   public static RequestContext createContext(HttpServletRequest request, HttpServletResponse response, boolean threadLocal) {
     HttpSession session = request.getSession(true);

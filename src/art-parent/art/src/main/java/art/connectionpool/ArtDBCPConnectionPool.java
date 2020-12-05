@@ -19,6 +19,7 @@ package art.connectionpool;
 
 import art.datasource.Datasource;
 import art.dbcp.ArtDBCPDataSource;
+import java.lang.reflect.InvocationTargetException;
 import java.util.concurrent.TimeUnit;
 import javax.sql.DataSource;
 import org.apache.commons.lang3.StringUtils;
@@ -69,10 +70,10 @@ public class ArtDBCPConnectionPool extends ConnectionPool {
 			//newInstance needed for buggy drivers e.g. neo4j 3.1.0
 			//https://stackoverflow.com/questions/2092659/what-is-difference-between-class-forname-and-class-forname-newinstance/2093236#2093236
 			if (StringUtils.isNotBlank(driver)) {
-				Class.forName(driver).newInstance();
+				Class.forName(driver).getDeclaredConstructor().newInstance();
 				logger.debug("JDBC driver registered: '{}'", driver);
 			}
-		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException ex) {
+		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException | NoSuchMethodException | InvocationTargetException ex) {
 			logger.error("Error while registering JDBC driver: '{}'", driver, ex);
 		}
 	}

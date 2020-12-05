@@ -8,7 +8,7 @@
  * You must accept the terms of that agreement to use this software.
  * ====================================================================
  *
- * 
+ *
  */
 package net.sf.wcfart.wcf.ui;
 
@@ -20,7 +20,7 @@ import org.w3c.dom.Node;
 
 /**
  * Created on 07.11.2002
- * 
+ *
  * @author av
  */
 public abstract class SelectMultiple extends Select {
@@ -31,7 +31,7 @@ public abstract class SelectMultiple extends Select {
     List<Node> lis = getItems(element);
     for (int i = 0; i < lis.size(); ++i) {
       if (Item.isSelected((Element) lis.get(i))) {
-        vector.add(new Integer(i));
+        vector.add(Integer.valueOf(i));
       }
     }
     // convert vector to int[]
